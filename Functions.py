@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import warnings
 
+
 def plot_decision_region(X, y, classifier, resolution=0.02):
     # Setup marker generator and color map
     markers = ('s', 'x', 'o', '^', 'v')
@@ -26,11 +27,12 @@ def plot_decision_region(X, y, classifier, resolution=0.02):
     for idx, cl in enumerate(np.unique(y)):
         plt.scatter(x=X[y==cl, 0], y=X[y==cl, 1], alpha=0.8, c=cmap(idx), marker=markers[idx], label=cl)
 
+
 def versiontuple(v):
     return tuple(map(int, (v.split("."))))
 
 
-# The plot function from highlighting samples from test data
+# The plot function highlighting samples from test data
 def plot_decision_regions(X, y, classifier, test_idx=None, resolution=0.02):
 
     # setup marker generator and color map
@@ -70,6 +72,7 @@ def plot_decision_regions(X, y, classifier, test_idx=None, resolution=0.02):
                     linewidths=1,
                     marker='o',
                     s=55, label='test set')
+
 
 def sigmoid(z):
     return 1.0 / (1.0 + np.exp(-z))
