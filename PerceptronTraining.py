@@ -2,7 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 import json
-import Perceptron
+import CPerceptron
 
 df = pd.read_csv('https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data', header=None)
 df.tail()
@@ -19,7 +19,7 @@ plt.ylabel('petal length')
 plt.legend(loc='upper left')
 plt.grid()
 
-ppn=Perceptron.Perceptron(eta=0.1, n_iter=10)
+ppn=CPerceptron.Perceptron(eta=0.1, n_iter=10)
 ppn.fit(X,y)
 plt.plot(range(1, len(ppn.errors_)+1),ppn.errors_, marker='o')
 plt.xlabel('Epochs')

@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import Perceptron
+import CPerceptron
 from Functions import plot_decision_region
 
 # Execution part...
@@ -13,7 +13,7 @@ y = df.iloc[0:100, 4].values
 y = np.where(y == 'Iris-setosa', -1, 1)
 X = df.iloc[0:100, [0,2]].values
 
-ppn = Perceptron.Perceptron(eta=0.1, n_iter=10)
+ppn = CPerceptron.Perceptron(eta=0.1, n_iter=10)
 ppn.fit(X,y)
 
 plot_decision_region(X, y, classifier=ppn)

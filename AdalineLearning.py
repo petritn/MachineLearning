@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
-from Adaline import AdalineGD, AdalineSGD
+from CAdaline import AdalineGD, AdalineSGD
 from Functions import plot_decision_region
 
 # Getting Iris data again...
