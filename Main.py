@@ -3,5 +3,5 @@ from sklearn import datasets
 from sklearn.cross_validation import train_test_split
 from sklearn.preprocessing import StandardScaler
 
-print('Hello World')
-print('if this actually works than it is really fantastically easy')
+print('Hello World!')
+print('If this actually works than it is really fantastically easy!')
