@@ -5,3 +5,4 @@ from sklearn.preprocessing import StandardScaler
 
 print('Hello World!')
 print('If this actually works than it is really fantastically easy!')
+print('Git seems fantastic!')
