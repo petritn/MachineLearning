@@ -149,7 +149,7 @@ plt.ylabel('petal width [standardized]')
 plt.legend(loc='upper left')
 plt.title('Decision Tree Classification')
 plt.show()
-export_graphviz(tree, out_file = 'tree.dot', feature_names = ['petal length', 'petal width'])
+export_graphviz(tree, out_file = 'Tree-Illustration.dot', feature_names = ['petal length', 'petal width'])
 
 # Random Forest classification illustration - combines multiple decision tree to build a strong learner
 # from a group of weak learners.
@@ -163,3 +163,14 @@ plt.title('Random Forest Classification')
 plt.legend(loc='upper left')
 plt.show()
 
+
+# Finally K-Nearest Neighbour classification
+
+knn = KNeighborsClassifier(n_neighbors=5, p=2, metric='minkowski')
+knn.fit(X_train_std, y_train)
+plot_decision_regions(X_combined_std, y_combined, classifier=knn, test_idx=range(105,150))
+plt.xlabel('petal length [standardized]')
+plt.ylabel('petal width [standardized]')
+plt.title('K - Nearest Neighbor Classification')
+plt.legend(loc='upper left')
+plt.show()
