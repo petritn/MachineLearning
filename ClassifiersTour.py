@@ -13,7 +13,6 @@ from sklearn.tree import export_graphviz
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.neighbors import KNeighborsClassifier
 
-
 # Import the Iris data set
 
 iris = datasets.load_iris()
@@ -29,24 +28,6 @@ sc.fit(X_train)
 X_train_std = sc.transform(X_train)
 X_test_std = sc.transform(X_test)
 
-# Perceptron class from scikit_learn library
-
-ppn = Perceptron(n_iter=40, eta0=0.1, random_state=0)
-ppn.fit(X_train_std, y_train)
-y_pred = ppn.predict(X_test_std)
-print('Misclassified samples: %d' % (y_test != y_pred).sum())
-print('Accuracy: %.2f' % accuracy_score(y_test, y_pred))
-
-# Now plotting the classification performance
-
-X_combined_std = np.vstack((X_train_std, X_test_std))
-y_combined = np.hstack((y_train, y_test))
-plot_decision_regions(X=X_combined_std, y=y_combined, classifier=ppn, test_idx=range(105, 150))
-plt.xlabel('petal length [standardized]')
-plt.ylabel('petal width [standardized]')
-plt.legend(loc='upper left')
-plt.show()
-
 # Logistic regression classification model and illustration of sigmoid function
 
 z = np.arange(-7, 7, 0.1)
@@ -60,18 +41,6 @@ plt.ylim(-0.1, 1.1)
 plt.xlabel('z')
 plt.ylabel('$\phi(z)$')
 plt.show()
-
-# Now using logistic regression from scikit-learn
-
-lr = LogisticRegression(C=1000.0, random_state=0)
-lr.fit(X_train_std, y_train)
-plot_decision_regions(X_combined_std, y_combined, classifier=lr, test_idx=range(105, 150))
-plt.xlabel('petal length [standardized]')
-plt.ylabel('petal width [standardized]')
-plt.legend(loc='upper left')
-plt.show()
-
-lr.predict_proba(X_test_std[0, :])
 
 # Regularisation
 
@@ -92,6 +61,35 @@ plt.legend(loc='upper left')
 plt.xscale('log')
 plt.show()
 
+# Perceptron class from scikit_learn library
+
+ppn = Perceptron(n_iter=40, eta0=0.1, random_state=0)
+ppn.fit(X_train_std, y_train)
+y_pred = ppn.predict(X_test_std)
+print('Misclassified samples: %d' % (y_test != y_pred).sum())
+print('Accuracy: %.2f' % accuracy_score(y_test, y_pred))
+
+# Now plotting the classification performance
+
+X_combined_std = np.vstack((X_train_std, X_test_std))
+y_combined = np.hstack((y_train, y_test))
+plot_decision_regions(X=X_combined_std, y=y_combined, classifier=ppn, test_idx=range(105, 150))
+plt.xlabel('petal length [standardized]')
+plt.ylabel('petal width [standardized]')
+plt.legend(loc='upper left')
+plt.show()
+
+# Using logistic regression from scikit-learn
+
+lr = LogisticRegression(C=1000.0, random_state=0)
+lr.fit(X_train_std, y_train)
+plot_decision_regions(X_combined_std, y_combined, classifier=lr, test_idx=range(105, 150))
+plt.xlabel('petal length [standardized]')
+plt.ylabel('petal width [standardized]')
+plt.legend(loc='upper left')
+plt.show()
+
+lr.predict_proba(X_test_std[0, :])
 
 # Support Vector Machines (SVM) - maximizing the margin or the distance between the separating hyperplane (decision
 # boundary) and the training samples that are closest to this hyperplane, the so called support vectors
@@ -162,7 +160,6 @@ plt.ylabel('petal width [standardized]')
 plt.title('Random Forest Classification')
 plt.legend(loc='upper left')
 plt.show()
-
 
 # Finally K-Nearest Neighbour classification
 
