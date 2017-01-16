@@ -8,6 +8,13 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import Perceptron
 from sklearn.metrics import accuracy_score
 from sklearn.linear_model import LogisticRegression
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.tree import export_graphviz
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.neighbors import KNeighborsClassifier
+
+
+# Import the Iris data set
 
 iris = datasets.load_iris()
 X = iris.data[:, [2, 3]]
@@ -15,10 +22,14 @@ y = iris.target
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=0)
 
+# Scale the data using the Standard Scaler
+
 sc = StandardScaler()
 sc.fit(X_train)
 X_train_std = sc.transform(X_train)
 X_test_std = sc.transform(X_test)
+
+# Perceptron class from scikit_learn library
 
 ppn = Perceptron(n_iter=40, eta0=0.1, random_state=0)
 ppn.fit(X_train_std, y_train)
@@ -92,6 +103,63 @@ svm.fit(X_train_std, y_train)
 plot_decision_regions(X_combined_std, y_combined, classifier=svm, test_idx=range(105, 150))
 plt.xlabel('petal length [standardized]')
 plt.ylabel('petal width [standardized]')
+plt.legend(loc='upper left')
+plt.show()
+
+# Using kernel functions to project inseparable data into higher dimensionality for separation
+# Radial Basis Function is one of the most widely used kernel functions
+
+np.random.seed(0)
+X_xor=np.random.randn(200,2)
+y_xor=np.logical_xor(X_xor[:, 0] > 0, X_xor[:, 1] > 0)
+y_xor = np.where(y_xor, 1, -1)
+
+plt.scatter(X_xor[y_xor==1, 0], X_xor[y_xor==1, 1], c='b', marker='x', label='1')
+plt.scatter(X_xor[y_xor==-1, 0], X_xor[y_xor==-1, 1], c='r', marker='s', label='-1')
+plt.ylim(-3.0)
+plt.legend()
+plt.show()
+
+svm=SVC(kernel='rbf', random_state=0, gamma=0.10, C=10.0)
+svm.fit(X_xor, y_xor)
+plot_decision_regions(X_xor, y_xor, classifier=svm)
+plt.legend(loc='upper left')
+plt.show()
+
+# The effect of increasing gamma in the SVM classifier (leading to overfitting)
+
+svm=SVC(kernel='rbf', random_state=0, gamma=100.0, C=1.0)
+svm.fit(X_train_std, y_train)
+plot_decision_regions(X_combined_std, y_combined, classifier=svm, test_idx=range(105,150))
+plt.xlabel('petal length [standardized]')
+plt.ylabel('petal width [standardized]')
+plt.title('Support Vector Machine - High Gamma Value')
+plt.legend(loc='upper left')
+plt.show()
+
+# Decision Tree illustration
+
+tree = DecisionTreeClassifier(criterion='entropy', max_depth=3, random_state=0)
+tree.fit(X_train, y_train)
+X_combined = np.vstack((X_train, X_test))
+y_combined = np.hstack((y_train, y_test))
+plot_decision_regions(X_combined, y_combined, classifier=tree, test_idx=range(105,150))
+plt.xlabel('petal length [standardized]')
+plt.ylabel('petal width [standardized]')
+plt.legend(loc='upper left')
+plt.title('Decision Tree Classification')
+plt.show()
+export_graphviz(tree, out_file = 'tree.dot', feature_names = ['petal length', 'petal width'])
+
+# Random Forest classification illustration - combines multiple decision tree to build a strong learner
+# from a group of weak learners.
+
+forest = RandomForestClassifier(criterion='entropy', n_estimators=10, random_state=1, n_jobs=2)
+forest.fit(X_train, y_train)
+plot_decision_regions(X_combined, y_combined, classifier=forest, test_idx=range(105,150))
+plt.xlabel('petal length [standardized]')
+plt.ylabel('petal width [standardized]')
+plt.title('Random Forest Classification')
 plt.legend(loc='upper left')
 plt.show()
 
