@@ -1,8 +1,9 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import CPerceptron
+
 from Functions import plot_decision_region
+from Objects import CPerceptron
 
 # Execution part...
 

@@ -1,8 +1,8 @@
 import matplotlib.pyplot as plt
-import pandas as pd
 import numpy as np
-from CAdaline import AdalineGD, AdalineSGD
-from Functions import plot_decision_region
+import pandas as pd
+
+from Objects.CAdaline import AdalineGD, AdalineSGD
 
 # Getting Iris data again...
 df = pd.read_csv('https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data', header=None)
