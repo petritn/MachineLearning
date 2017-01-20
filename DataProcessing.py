@@ -10,3 +10,10 @@ print(class_mapping)
 
 df['class-label']=df['class-label'].map(class_mapping)
 print(df)
+
+df_wine = pd.read_csv('https://archive.ics.uci.edu/ml/machine-learning-database/wine/wine.data')
+df_wine.columns = ['Class Label', 'Alcohol', 'Malic Acid', 'Ash', 'Alcalinity of Ash', 'Magnesium', 'Total Phenols',
+                   'Flavanoids', 'Non-Flavanoid Phenols', 'Proanthocyannins', 'Color Intensity', 'Hue',
+                   'OD280/OD315 of diluted wines', 'Proline']
+print('Class labels', np.unique(df_wine['Class Label']))
+df_wine.head()
